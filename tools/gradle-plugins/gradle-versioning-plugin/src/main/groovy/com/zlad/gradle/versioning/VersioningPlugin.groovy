@@ -12,9 +12,9 @@ class VersioningPlugin implements Plugin<Project> {
     }
 
     private String resolveVersion(Project project, String name) {
-        def details = project.versionDetails(prefix: "${name}@")
+        def details = project.versionDetails()
         if (details.version == 'unspecified' || details.gitHash.startsWith(details.lastTag)) {
-            return 'unspecified'
+            return details.lastTag
         } else {
             return "${details.lastTag.replaceAll('^v', '')}.${details.commitDistance}"
         }
