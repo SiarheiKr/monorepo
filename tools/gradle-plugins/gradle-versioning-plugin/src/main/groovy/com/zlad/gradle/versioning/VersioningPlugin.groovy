@@ -13,10 +13,8 @@ class VersioningPlugin implements Plugin<Project> {
 
     private String resolveVersion(Project project, String name) {
         def details = project.versionDetails(prefix: "${name}@")
-        def tag = details.lastTag
-        def hash = details.gitHash
         if (details.version == 'unspecified' || details.gitHash.startsWith(details.lastTag)) {
-            return details.version
+            return 'unspecified'
         } else {
             return "${details.lastTag.replaceAll('^v', '')}.${details.commitDistance}"
         }
